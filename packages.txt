@@ -1,7 +1,7 @@
-build-tools;29.0.2
+build-tools;30.0.3
+platforms;android-30
 platforms;android-29
 platforms;android-28
-platform-tools
 extras;android;m2repository
 extras;google;google_play_services
 extras;google;m2repository
