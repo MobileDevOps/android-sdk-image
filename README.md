@@ -2,7 +2,7 @@
 Docker image to build an Android app `*.apk`.
 The image contains the latest [Android SDK tools](https://developer.android.com/studio/releases/sdk-tools) and the Android SDK platform packages from [packages.txt](packages.txt):
 
-* build-tools;29.0.3
+* build-tools;30.0.3
 * platforms;android-30
 * platforms;android-29
 * platforms;android-28
