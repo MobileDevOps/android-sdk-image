@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  pull-request:
+  staging:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
