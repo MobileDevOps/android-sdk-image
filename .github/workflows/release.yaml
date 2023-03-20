@@ -1,0 +1,17 @@
+name: Release
+
+env:
+  IMAGE_TAG: ${{ github.ref_name }}
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - run: make build
