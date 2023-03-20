@@ -1,9 +1,9 @@
-FROM ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:22.04
 
 LABEL maintainer="messeb"
     
-ENV ANDROID_SDK_TOOLS_VERSION 6858069
-ENV ANDROID_SDK_TOOLS_CHECKSUM 87f6dcf41d4e642e37ba03cb2e387a542aa0bd73cb689a9e7152aad40a6e7a08
+ENV ANDROID_SDK_TOOLS_VERSION 9477386
+ENV ANDROID_SDK_TOOLS_CHECKSUM bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
 
 ENV ANDROID_HOME "/opt/android-sdk-linux"
 ENV ANDROID_SDK_ROOT $ANDROID_HOME
@@ -16,11 +16,11 @@ ENV LANG en_US.UTF-8
 RUN apt-get -qq update \
     && apt-get -qqy --no-install-recommends install \
     apt-utils \
-    openjdk-8-jdk \
-    openjdk-11-jre-headless- \
+    openjdk-18-jdk \
+    openjdk-18-jre-headless \
     software-properties-common \
     build-essential \
-    lib32stdc++6 \
+    libstdc++6 \
     libpulse0 \
     libglu1-mesa \
     openssh-server \
