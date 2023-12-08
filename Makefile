@@ -11,6 +11,9 @@ tag_image: build
 build:
 	docker build -t $(IMAGE) .
 
+run:
+	docker run -it --rm $(IMAGE) /bin/bash
+
 dockerhub_push:
 	docker push $(IMAGE):latest \
 	&& docker push "$(IMAGE):$(IMAGE_TAG)"
