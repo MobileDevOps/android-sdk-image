@@ -1,16 +1,18 @@
 # Docker image for Android SDK
 Docker image to build an Android app `*.apk`.
-The image contains the latest [Android SDK tools](https://developer.android.com/studio#cmdline-tools) and the Android SDK platform packages from [packages.txt](packages.txt):
+The image contains the latest [Android SDK tools](https://developer.android.com/studio#cmdline-tools), [Gradle 8.2](https://developer.android.com/build/releases/gradle-plugin) and the Android SDK platform packages from [packages.txt](packages.txt):
 
+
+* build-tools;34.0.0
 * build-tools;33.0.2
-* build-tools;30.0.3
+* platforms;android-34
+* platforms;android-34-ext8
 * platforms;android-33
-* platforms;android-32
-* platforms;android-31
-* platforms;android-30
+* platform-tools
 * extras;android;m2repository
 * extras;google;google_play_services
 * extras;google;m2repository
+* add-ons;addon-google_apis-google-24
 
 The [releases tags](https://github.com/mobiledevops/android-sdk-image/releases) are oriented on the base of the *Build Tools* version from [packages.txt](packages.txt).
 
@@ -32,7 +34,7 @@ version: 2.1
 jobs:
   build:
     docker: 
-      - image: mobiledevops/android-sdk-image:33.0.2
+      - image: mobiledevops/android-sdk-image:34.0.0
     steps:
       - checkout
       - run:
@@ -59,7 +61,7 @@ services:
   - docker
 
 env:
-  - DOCKER_IMAGE=mobiledevops/android-sdk-image:33.0.2
+  - DOCKER_IMAGE=mobiledevops/android-sdk-image:34.0.0
 
 before_install:
   - docker pull $DOCKER_IMAGE
@@ -81,7 +83,7 @@ Example:
 
 ```
 # .gitlab-ci.yml
-image: mobiledevops/android-sdk-image:33.0.2
+image: mobiledevops/android-sdk-image:34.0.0
 
 stages:
     - build

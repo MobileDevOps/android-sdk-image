@@ -1,9 +1,13 @@
-FROM --platform=linux/amd64 ubuntu:22.04
+FROM --platform=linux/amd64 ubuntu:23.10
 
 LABEL maintainer="messeb"
-    
-ENV ANDROID_SDK_TOOLS_VERSION 9477386
-ENV ANDROID_SDK_TOOLS_CHECKSUM bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
+
+# Command line tools only
+# https://developer.android.com/studio/index.html
+ENV ANDROID_SDK_TOOLS_VERSION 10406996
+ENV ANDROID_SDK_TOOLS_CHECKSUM 8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540
+
+ENV GRADLE_VERSION 8.2
 
 ENV ANDROID_HOME "/opt/android-sdk-linux"
 ENV ANDROID_SDK_ROOT $ANDROID_HOME
@@ -16,14 +20,20 @@ ENV LANG en_US.UTF-8
 RUN apt-get -qq update \
     && apt-get -qqy --no-install-recommends install \
     apt-utils \
-    openjdk-18-jdk \
-    openjdk-18-jre-headless \
-    software-properties-common \
     build-essential \
+    openjdk-22-jdk \
+    openjdk-22-jre-headless \
+    software-properties-common \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
+    cargo \
+    pkg-config\  
     libstdc++6 \
     libpulse0 \
     libglu1-mesa \
     openssh-server \
+    zip \
     unzip \
     curl \
     lldb \
@@ -57,9 +67,19 @@ ENV HOME /home/mobiledevops
 USER mobiledevops
 WORKDIR $HOME/app
 
+# Install SDKMAN
+RUN curl -s "https://get.sdkman.io" | bash
+SHELL ["/bin/bash", "-c"]   
+
 # Install Android packages
 ADD packages.txt $HOME
-RUN $ANDROID_HOME/cmdline-tools/bin/sdkmanager --update  --sdk_root=${ANDROID_SDK_ROOT} \
+
+# Update sdkmanager
+RUN $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update \
     && while read -r pkg; do PKGS="${PKGS}${pkg} "; done < $HOME/packages.txt \
-    && $ANDROID_HOME/cmdline-tools/bin/sdkmanager $PKGS > /dev/null --sdk_root=${ANDROID_SDK_ROOT} \
+    && $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} $PKGS \
     && rm $HOME/packages.txt
+
+# Install Gradle
+RUN source "${HOME}/.sdkman/bin/sdkman-init.sh" \
+    && sdk install gradle ${GRADLE_VERSION}
