@@ -37,6 +37,7 @@ RUN apt-get -qq update \
     unzip \
     curl \
     lldb \
+    sudo \
     git > /dev/null \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
    
@@ -62,7 +63,12 @@ RUN groupadd -r mobiledevops \
     && chown --recursive mobiledevops:mobiledevops /home/mobiledevops/app \
     && chown --recursive mobiledevops:mobiledevops $ANDROID_HOME
 
-# Set non-root user as default      
+
+# add user to sudoers
+RUN adduser mobiledevops sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Set non-root user as default
 ENV HOME /home/mobiledevops
 USER mobiledevops
 WORKDIR $HOME/app
