@@ -21,8 +21,8 @@ RUN apt-get -qq update \
     && apt-get -qqy --no-install-recommends install \
     apt-utils \
     build-essential \
-    openjdk-22-jdk \
-    openjdk-22-jre-headless \
+    openjdk-17-jdk \
+    openjdk-17-jre-headless \
     software-properties-common \
     libssl-dev \
     libffi-dev \
