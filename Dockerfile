@@ -1,13 +1,13 @@
-FROM --platform=linux/amd64 ubuntu:23.10
+FROM --platform=linux/amd64 ubuntu:24.04
 
 LABEL maintainer="messeb"
 
 # Command line tools only
 # https://developer.android.com/studio/index.html
-ENV ANDROID_SDK_TOOLS_VERSION 10406996
-ENV ANDROID_SDK_TOOLS_CHECKSUM 8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540
+ENV ANDROID_SDK_TOOLS_VERSION 11076708
+ENV ANDROID_SDK_TOOLS_CHECKSUM 2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
 
-ENV GRADLE_VERSION 8.2
+ENV GRADLE_VERSION 8.3
 
 ENV ANDROID_HOME "/opt/android-sdk-linux"
 ENV ANDROID_SDK_ROOT $ANDROID_HOME
@@ -21,8 +21,8 @@ RUN apt-get -qq update \
     && apt-get -qqy --no-install-recommends install \
     apt-utils \
     build-essential \
-    openjdk-22-jdk \
-    openjdk-22-jre-headless \
+    openjdk-17-jdk \
+    openjdk-17-jre-headless \
     software-properties-common \
     libssl-dev \
     libffi-dev \
@@ -52,19 +52,12 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
     && echo "84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_HOME/licenses/android-sdk-preview-license --licenses \
     && yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --licenses --sdk_root=${ANDROID_SDK_ROOT}
 
-# Add non-root user 
-RUN groupadd -r mobiledevops \
-    && useradd --no-log-init -r -g mobiledevops mobiledevops \
-    && mkdir -p /home/mobiledevops/.android \
+# Add folder for SDK files 
+RUN mkdir -p /home/mobiledevops/.android \
     && mkdir -p /home/mobiledevops/app \
-    && touch /home/mobiledevops/.android/repositories.cfg \
-    && chown --recursive mobiledevops:mobiledevops /home/mobiledevops \
-    && chown --recursive mobiledevops:mobiledevops /home/mobiledevops/app \
-    && chown --recursive mobiledevops:mobiledevops $ANDROID_HOME
+    && touch /home/mobiledevops/.android/repositories.cfg
 
-# Set non-root user as default      
 ENV HOME /home/mobiledevops
-USER mobiledevops
 WORKDIR $HOME/app
 
 # Install SDKMAN
