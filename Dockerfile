@@ -4,31 +4,31 @@ LABEL maintainer="messeb"
 
 # Command line tools only
 # https://developer.android.com/studio/index.html
-ENV ANDROID_SDK_TOOLS_VERSION 11076708
-ENV ANDROID_SDK_TOOLS_CHECKSUM 2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
+ENV ANDROID_SDK_TOOLS_VERSION="15641748"
+ENV ANDROID_SDK_TOOLS_CHECKSUM="a66d5ef0238fc0162e9c1446602ce0dd41702d4dd7a94d2ce42d12b7f80baf7e"
 
-ENV GRADLE_VERSION 8.3
+ENV GRADLE_VERSION="9.6.1"
 
-ENV ANDROID_HOME "/opt/android-sdk-linux"
-ENV ANDROID_SDK_ROOT $ANDROID_HOME
-ENV PATH $PATH:$ANDROID_HOME/cmdline-tools:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools
+ENV ANDROID_HOME="/opt/android-sdk-linux"
+ENV ANDROID_SDK_ROOT="$ANDROID_HOME"
+ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools"
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV LANG en_US.UTF-8
+ENV LANG="en_US.UTF-8"
 
 # Add base environment
 RUN apt-get -qq update \
     && apt-get -qqy --no-install-recommends install \
     apt-utils \
     build-essential \
-    openjdk-17-jdk \
-    openjdk-17-jre-headless \
+    openjdk-21-jdk \
+    openjdk-21-jre-headless \
     software-properties-common \
     libssl-dev \
     libffi-dev \
     python3-dev \
     cargo \
-    pkg-config\  
+    pkg-config \
     libstdc++6 \
     libpulse0 \
     libglu1-mesa \
@@ -39,7 +39,7 @@ RUN apt-get -qq update \
     lldb \
     git > /dev/null \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-   
+
 # Download and unzip Android SDK Tools
 RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS_VERSION}_latest.zip > /tools.zip \
     && echo "$ANDROID_SDK_TOOLS_CHECKSUM ./tools.zip" | sha256sum -c \
@@ -52,17 +52,17 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
     && echo "84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_HOME/licenses/android-sdk-preview-license --licenses \
     && yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --licenses --sdk_root=${ANDROID_SDK_ROOT}
 
-# Add folder for SDK files 
+# Add folder for SDK files
 RUN mkdir -p /home/mobiledevops/.android \
     && mkdir -p /home/mobiledevops/app \
     && touch /home/mobiledevops/.android/repositories.cfg
 
-ENV HOME /home/mobiledevops
+ENV HOME="/home/mobiledevops"
 WORKDIR $HOME/app
 
 # Install SDKMAN
 RUN curl -s "https://get.sdkman.io" | bash
-SHELL ["/bin/bash", "-c"]   
+SHELL ["/bin/bash", "-c"]
 
 # Install Android packages
 ADD packages.txt $HOME

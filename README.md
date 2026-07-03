@@ -1,13 +1,12 @@
 # Docker image for Android SDK
 Docker image to build an Android app `*.apk`.
-The image contains the latest [Android SDK tools](https://developer.android.com/studio#cmdline-tools), [Gradle 8.2](https://developer.android.com/build/releases/gradle-plugin) and the Android SDK platform packages from [packages.txt](packages.txt):
+The image contains the latest [Android SDK tools](https://developer.android.com/studio#cmdline-tools), [Gradle 9.6.1](https://gradle.org/releases/) and the Android SDK platform packages from [packages.txt](packages.txt):
 
 
-* build-tools;34.0.0
-* build-tools;33.0.2
-* platforms;android-34
-* platforms;android-34-ext8
-* platforms;android-33
+* build-tools;36.1.0
+* build-tools;35.0.1
+* platforms;android-36
+* platforms;android-35
 * platform-tools
 * extras;android;m2repository
 * extras;google;google_play_services
@@ -34,7 +33,7 @@ version: 2.1
 jobs:
   build:
     docker: 
-      - image: mobiledevops/android-sdk-image:34.0.0
+      - image: mobiledevops/android-sdk-image:36.1.0
     steps:
       - checkout
       - run:
@@ -61,7 +60,7 @@ services:
   - docker
 
 env:
-  - DOCKER_IMAGE=mobiledevops/android-sdk-image:34.0.0
+  - DOCKER_IMAGE=mobiledevops/android-sdk-image:36.1.0
 
 before_install:
   - docker pull $DOCKER_IMAGE
@@ -83,7 +82,7 @@ Example:
 
 ```
 # .gitlab-ci.yml
-image: mobiledevops/android-sdk-image:34.0.0
+image: mobiledevops/android-sdk-image:36.1.0
 
 stages:
     - build
