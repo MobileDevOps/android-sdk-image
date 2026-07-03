@@ -1,0 +1,21 @@
+Makefile
+  s_724f866551869b::t_1afd670f7363a4 4-6,14
+Dockerfile
+  s_724f866551869b::t_65547414e04609 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "fbe10e9381413c262c1f774cfc7c86c659136a10",
+  "prompts": {},
+  "sessions": {
+    "s_724f866551869b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "666f921f-501e-4c62-b100-821465d228ce",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
