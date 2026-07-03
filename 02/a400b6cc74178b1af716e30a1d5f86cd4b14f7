@@ -1,0 +1,30 @@
+README.md
+  s_dc3df3ec40135a::t_d712da4bd00a89 3,6-9
+  s_dc3df3ec40135a::t_bd5379bd8a8f2a 36,63,85
+packages.txt
+  s_dc3df3ec40135a::t_39068b2414879f 1-4,9
+Dockerfile
+  s_dc3df3ec40135a::t_7d42004eb3dacf 7-8,10,12-14,17,24-25,31,42,55,60,65
+.github/workflows/pull-request.yaml
+  s_dc3df3ec40135a::t_d8143e7cc0f1c2 13,15
+.github/workflows/release.yaml
+  s_dc3df3ec40135a::t_3b82133b3f16b5 16,18
+.github/workflows/staging.yaml
+  s_dc3df3ec40135a::t_67aeda13724b5a 13,15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "02a400b6cc74178b1af716e30a1d5f86cd4b14f7",
+  "prompts": {},
+  "sessions": {
+    "s_dc3df3ec40135a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "04ae37f5-c61a-4868-8664-1cc9b3d420bf",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
